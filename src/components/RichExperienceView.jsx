@@ -1,9 +1,9 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { X, Minus, Square, Globe, Target, Cpu, Database, Radio, Clock, EyeOff, Layout, Terminal, Zap, Download } from 'lucide-react';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
+import { X, Minus, Square, Globe, Target, Cpu, Database, Radio, Clock, EyeOff, Layout, Terminal as PlatformIcon, Zap, Download, Swords } from 'lucide-react';
 
 const ICON_MAP = {
-    Globe, Target, Cpu, Database, Radio, Clock, EyeOff, Layout, Building: Layout
+    Globe, Target, Cpu, Database, Radio, Clock, EyeOff, Layout, Building: Layout, Trophy: PlatformIcon, Swords, Zap
 };
 
 const RetroWindow = ({ title, icon: Icon, children, className = "" }) => (
@@ -43,6 +43,16 @@ const SectionDivider = ({ title }) => (
 
 const RichExperienceView = ({ data }) => {
 
+    const [isNavOpen, setIsNavOpen] = React.useState(false);
+
+    const scrollToSection = (id) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+            setIsNavOpen(false);
+        }
+    };
+
     const renderContentItem = (item, index) => {
         switch (item.type) {
             case 'narrative':
@@ -58,10 +68,10 @@ const RichExperienceView = ({ data }) => {
                         {item.title && <h4 className="font-bold text-[#7EACB5] mb-4 uppercase text-sm border-b-2 border-[#7EACB5]/30 inline-block tracking-wider font-mono">{item.title}</h4>}
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             {item.images.map((img, i) => (
-                                <div key={i} className="group relative">
+                                <div key={i} className="group relative cursor-zoom-in" onClick={() => setSelectedImage(img)}>
                                     <div className="bg-[#FFF8E7] border-2 border-[#C96868]/30 p-1 shadow-sm hover:shadow-[4px_4px_0px_0px_rgba(201,104,104,0.3)] transition-all">
                                         <div className="aspect-square overflow-hidden bg-[#C96868]/10">
-                                            <img src={img.src} alt={img.alt} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                                            <img src={img.src} alt={img.alt} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" decoding="async" />
                                         </div>
                                         <div className="text-center mt-1 bg-white border border-[#C96868]/10 py-1">
                                             <span className="text-[10px] font-mono font-bold uppercase truncate block px-1 text-[#7EACB5]">{img.caption}</span>
@@ -166,13 +176,195 @@ const RichExperienceView = ({ data }) => {
                     </div>
                 );
 
-            default:
+            case 'image':
+                return (
+                    <div key={index} className="mb-8 group cursor-zoom-in" onClick={() => setSelectedImage(item)}>
+                        <div className="bg-[#FFF8E7] border-2 border-[#C96868] p-1 shadow-[4px_4px_0px_0px_rgba(201,104,104,0.3)] transition-all transform hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(201,104,104,0.4)]">
+                            <div className="overflow-hidden bg-[#C96868]/10 relative">
+                                <div className="absolute inset-0 bg-[#C96868]/10 mix-blend-multiply pointer-events-none" />
+                                <img src={item.src} alt={item.alt} className="w-full h-auto object-cover transition-all duration-500" loading="lazy" decoding="async" />
+                            </div>
+                            <div className="text-center mt-1 bg-white border border-[#C96868]/10 py-1">
+                                <span className="text-[10px] font-mono font-bold uppercase truncate block px-1 text-[#7EACB5]">
+                                    FIG_{index + 1}: {item.caption}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                );
+
+            case 'split-content':
+                return (
+                    <div key={index} className="flex flex-col md:flex-row gap-6 mb-8 items-center">
+                        <div className={`w-full md:w-1/2 ${item.reverse ? 'md:order-2' : 'md:order-1'}`}>
+                            <div className="bg-[#FFF8E7] border-2 border-[#C96868] p-1 shadow-[4px_4px_0px_0px_rgba(201,104,104,0.3)] rotate-1 hover:rotate-0 transition-transform duration-300">
+                                <div className="aspect-video overflow-hidden bg-[#C96868]/10 relative">
+                                    <img src={item.src} alt={item.alt} className="w-full h-full object-cover transition-all duration-500" loading="lazy" decoding="async" />
+                                </div>
+                                <div className="text-center mt-1 bg-white border border-[#C96868]/10 py-1">
+                                    <span className="text-[10px] font-mono font-bold uppercase truncate block px-1 text-[#7EACB5]">
+                                        {item.caption}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={`w-full md:w-1/2 ${item.reverse ? 'md:order-1' : 'md:order-2'}`}>
+                            {item.title && <h4 className="font-bold text-[#7EACB5] text-lg mb-4 uppercase inline-block border-b-2 border-[#C96868]">{item.title}</h4>}
+                            <p className="text-base leading-relaxed text-[#4A4A4A] font-medium text-justify">
+                                {item.text}
+                            </p>
+                        </div>
+                    </div>
+                );
+
+            case 'table':
+                return (
+                    <div key={index} className="overflow-x-auto mb-8 bg-white border-2 border-[#C96868] shadow-[4px_4px_0px_0px_rgba(201,104,104,0.3)]">
+                        <div className="bg-[#FFF4EA] p-3 border-b-2 border-[#C96868] flex items-center justify-between">
+                            <h4 className="font-black text-[#C96868] uppercase tracking-widest text-xs flex items-center gap-2 font-mono">
+                                <PlatformIcon size={16} /> {item.title}
+                            </h4>
+                            <div className="flex gap-1.5">
+                                <div className="w-2 h-2 rounded-full bg-[#ff5f56] border border-[#e0453e]" />
+                                <div className="w-2 h-2 rounded-full bg-[#ffbd2e] border border-[#dfa123]" />
+                                <div className="w-2 h-2 rounded-full bg-[#27c93f] border border-[#1aab29]" />
+                            </div>
+                        </div>
+                        <table className="w-full text-xs font-mono text-left border-collapse">
+                            <thead>
+                                <tr className="bg-[#C96868]/5 text-[#C96868]">
+                                    {item.headers.map((h, i) => (
+                                        <th key={i} className="p-3 border-b-2 border-[#C96868] border-r border-[#C96868]/20 last:border-r-0 font-bold uppercase tracking-wider whitespace-nowrap">
+                                            {h}
+                                        </th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-[#C96868]/20">
+                                {item.rows.map((row, i) => (
+                                    <tr key={i} className="hover:bg-[#FFF8E7] transition-colors group">
+                                        {row.map((cell, j) => {
+                                            // Simple logic to highlight success/fail based on cell content if it's a number-like string
+                                            const isScore = j > 1; // Assuming first 2 cols are ID/Type
+                                            let cellColor = "text-[#4A4A4A]";
+                                            let cellBg = "";
+
+                                            // Check if cell is a score (contains numbers and comma, no letters basically)
+                                            if (isScore && /^[0-9,.]+$/.test(cell)) {
+                                                const val = parseFloat(cell.replace(/,/g, ''));
+                                                if (val < 100000) {
+                                                    cellColor = "text-green-600 font-bold";
+                                                    cellBg = "bg-green-50/50";
+                                                } else if (val > 200000) {
+                                                    cellColor = "text-red-400 opacity-60";
+                                                }
+                                            }
+
+                                            return (
+                                                <td key={j} className={`p-3 border-r border-[#C96868]/10 last:border-r-0 ${cellColor} ${cellBg}`}>
+                                                    {cell}
+                                                </td>
+                                            );
+                                        })}
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        {item.caption && (
+                            <div className="p-3 text-[10px] text-[#888888] font-mono bg-[#FAFAFA] border-t border-[#C96868]/20 uppercase tracking-wide flex items-center gap-2">
+                                <span className="w-2 h-2 bg-green-500 rounded-full inline-block" /> Success (&lt;100k)
+                                <span className="w-2 h-2 bg-red-400 rounded-full inline-block ml-2 opacity-60" /> Fail (&gt;200k)
+                                <span className="ml-auto opacity-70">{item.caption}</span>
+                            </div>
+                        )}
+                    </div>
+                );
+
                 return null;
         }
     };
 
+    const { scrollYProgress } = useScroll();
+    const scaleX = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
+
+    const [selectedImage, setSelectedImage] = React.useState(null);
+
     return (
-        <div className="w-full pb-20 bg-[#FFF4EA] min-h-screen font-sans">
+        <div className="w-full pb-20 bg-[#FFF4EA] min-h-screen font-sans relative">
+            {/* LIGHTBOX OVERLAY */}
+            <AnimatePresence>
+                {selectedImage && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setSelectedImage(null)}
+                        className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 cursor-zoom-out"
+                    >
+                        <motion.img
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            src={selectedImage.src}
+                            alt={selectedImage.alt}
+                            className="max-w-full max-h-[90vh] object-contain border-4 border-white shadow-2xl"
+                        />
+                        <div className="absolute bottom-4 left-0 right-0 text-center text-white/80 font-mono text-sm">
+                            {selectedImage.caption}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Scroll Progress Bar */}
+            <motion.div
+                className="fixed top-0 left-0 right-0 h-2 bg-[#C96868] origin-left z-50 border-b border-white/20"
+                style={{ scaleX }}
+            />
+
+            {/* Quick Nav Button */}
+            <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end gap-4 pointer-events-none">
+                {/* Pointer events none on container so it doesn't block clicks, re-enable on children */}
+                <AnimatePresence>
+                    {isNavOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+                            className="bg-[#C96868] text-white p-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)] border-2 border-[#FFF8E7] min-w-[200px] pointer-events-auto"
+                        >
+                            <div className="text-xs font-mono font-bold border-b border-white/20 pb-2 mb-2 uppercase tracking-wider flex justify-between items-center">
+                                <span>Jump To Section</span>
+                                <span className="text-[10px] opacity-70">NAV.SYS</span>
+                            </div>
+                            <div className="flex flex-col gap-1 max-h-[40vh] overflow-y-auto custom-scrollbar">
+                                {data.sections?.map(s => (
+                                    <button
+                                        key={s.id}
+                                        onClick={() => scrollToSection(s.id)}
+                                        className="text-left text-xs font-bold py-2 px-3 hover:bg-[#FFF4EA] hover:text-[#C96868] transition-colors uppercase tracking-wide flex items-center gap-2 group w-full"
+                                    >
+                                        <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[10px]">►</span>
+                                        <span className="truncate">{s.title.split(":")[0]}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+                <button
+                    onClick={() => setIsNavOpen(!isNavOpen)}
+                    className="pointer-events-auto bg-[#C96868] text-white p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.2)] border-2 border-[#FFF8E7] hover:bg-[#b05555] transition-colors group flex items-center justify-center rounded-sm"
+                >
+                    <Layout size={24} className="group-hover:rotate-180 transition-transform duration-500" />
+                </button>
+            </div>
+
             {/* HERO SECTION */}
             <div className="relative">
                 {/* Cover Image - Full Width Banner */}
@@ -183,7 +375,7 @@ const RichExperienceView = ({ data }) => {
                         alt="Hero"
                         className="w-full h-full object-cover"
                     />
-                    
+
                     {/* Text Overlay - Bottom Left */}
                     <div className="absolute bottom-8 left-4 md:left-8 z-20 max-w-2xl">
                         <span className="inline-block bg-[#C96868] text-white px-3 py-1.5 text-xs font-mono tracking-widest uppercase shadow-lg mb-4">
@@ -226,12 +418,13 @@ const RichExperienceView = ({ data }) => {
 
                     return (
                         <motion.section
+                            id={section.id}
                             key={section.id}
                             initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.1 }}
+                            viewport={{ once: true, margin: "-100px" }}
                             transition={{ duration: 0.5 }}
-                            className="relative z-10"
+                            className="relative z-10 scroll-mt-24"
                         >
                             <SectionDivider title={section.title} />
 

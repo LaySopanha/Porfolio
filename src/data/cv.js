@@ -29,7 +29,7 @@ export const cvData = {
     ],
     experience: [
         {
-            role: "Visiting Research Fellowship",
+            role: "DGIST Summer Research Intern",
             company: "Privacy & Applied Cryptography Lab (PACL), DGIST",
             location: "Daegu, South Korea",
             date: "Jun 2025 – Aug 2025",
