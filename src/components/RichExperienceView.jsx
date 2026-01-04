@@ -194,12 +194,15 @@ const RichExperienceView = ({ data }) => {
                 );
 
             case 'split-content':
+                const imageWidth = item.isLarge ? 'md:w-[65%]' : 'md:w-1/2';
+                const textWidth = item.isLarge ? 'md:w-[35%]' : 'md:w-1/2';
+
                 return (
                     <div key={index} className="flex flex-col md:flex-row gap-6 mb-8 items-center">
-                        <div className={`w-full md:w-1/2 ${item.reverse ? 'md:order-2' : 'md:order-1'}`}>
-                            <div className="bg-[#FFF8E7] border-2 border-[#C96868] p-1 shadow-[4px_4px_0px_0px_rgba(201,104,104,0.3)] rotate-1 hover:rotate-0 transition-transform duration-300">
-                                <div className="aspect-video overflow-hidden bg-[#C96868]/10 relative">
-                                    <img src={item.src} alt={item.alt} className="w-full h-full object-cover transition-all duration-500" loading="lazy" decoding="async" />
+                        <div className={`w-full ${imageWidth} ${item.reverse ? 'md:order-2' : 'md:order-1'}`}>
+                            <div className="bg-[#FFF8E7] border-2 border-[#C96868] p-1 shadow-[4px_4px_0px_0px_rgba(201,104,104,0.3)] rotate-1 hover:rotate-0 transition-transform duration-300 w-fit mx-auto max-w-full">
+                                <div className="overflow-hidden bg-white relative flex items-center justify-center">
+                                    <img src={item.src} alt={item.alt} className={`w-auto max-w-full h-auto ${item.isLarge ? 'max-h-[600px]' : 'max-h-[400px]'} object-contain transition-all duration-500`} loading="lazy" decoding="async" />
                                 </div>
                                 <div className="text-center mt-1 bg-white border border-[#C96868]/10 py-1">
                                     <span className="text-[10px] font-mono font-bold uppercase truncate block px-1 text-[#7EACB5]">
@@ -208,7 +211,7 @@ const RichExperienceView = ({ data }) => {
                                 </div>
                             </div>
                         </div>
-                        <div className={`w-full md:w-1/2 ${item.reverse ? 'md:order-1' : 'md:order-2'}`}>
+                        <div className={`w-full ${textWidth} ${item.reverse ? 'md:order-1' : 'md:order-2'}`}>
                             {item.title && <h4 className="font-bold text-[#7EACB5] text-lg mb-4 uppercase inline-block border-b-2 border-[#C96868]">{item.title}</h4>}
                             <p className="text-base leading-relaxed text-[#4A4A4A] font-medium text-justify">
                                 {item.text}

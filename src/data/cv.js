@@ -40,7 +40,7 @@ export const cvData = {
             ]
         },
         {
-            role: "Data Science Research Intern",
+            role: "IDRI Research Internship",
             company: "Institute for Digital Research & Innovation (IDRI)",
             location: "Phnom Penh, Cambodia",
             date: "May 2025 – Jul 2025",
