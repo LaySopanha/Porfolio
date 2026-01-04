@@ -126,13 +126,13 @@ const DesktopIcon = ({ label, type, onClick, delay }) => (
 
 const CharacterProfile = ({ onNavigate }) => {
     return (
-        <div className="h-full flex flex-col relative overflow-y-auto lg:overflow-hidden custom-scrollbar lg:custom-scrollbar-none">
+        <div className="h-full flex flex-col relative overflow-y-auto xl:overflow-hidden custom-scrollbar xl:custom-scrollbar-none">
 
             {/* CONTENT AREA */}
-            <div className="flex-1 flex flex-col lg:flex-row max-w-7xl mx-auto w-full">
+            <div className="flex-1 flex flex-col xl:flex-row max-w-7xl mx-auto w-full">
 
                 {/* LEFT COLUMN: AVATAR & BIO */}
-                <div className="w-full lg:w-[35%] p-4 lg:p-8 flex-col bg-white/30 backdrop-blur-md lg:border-r border-primary/10 overflow-visible lg:overflow-y-auto custom-scrollbar shadow-xl z-10 shrink-0 flex">
+                <div className="w-full xl:w-[35%] p-4 lg:p-8 flex-col bg-white/30 backdrop-blur-md xl:border-r border-primary/10 overflow-visible xl:overflow-y-auto custom-scrollbar shadow-xl z-10 shrink-0 flex">
 
                     {/* AVATAR FRAME - Compact on Mobile */}
                     <motion.div
@@ -205,11 +205,11 @@ const CharacterProfile = ({ onNavigate }) => {
                     </div>
 
                     {/* SOCIAL LINKS - COMPACT */}
-                    <div className="grid grid-cols-2 gap-2 md:gap-3 mt-auto pb-0">
-                        <a href={cvData.personal.links.github} target="_blank" className="flex items-center justify-center gap-2 py-1.5 md:py-2 bg-text-main text-white rounded-lg text-[10px] md:text-xs font-bold hover:bg-primary transition-colors">
+                    <div className="grid grid-cols-2 gap-2 xl:gap-3 mt-auto pb-0">
+                        <a href={cvData.personal.links.github} target="_blank" className="flex items-center justify-center gap-2 py-1.5 xl:py-2 bg-text-main text-white rounded-lg text-[10px] xl:text-xs font-bold hover:bg-primary transition-colors">
                             GITHUB
                         </a>
-                        <a href={cvData.personal.links.linkedin} target="_blank" className="flex items-center justify-center gap-2 py-1.5 md:py-2 bg-[#0077b5] text-white rounded-lg text-[10px] md:text-xs font-bold hover:opacity-90 transition-opacity">
+                        <a href={cvData.personal.links.linkedin} target="_blank" className="flex items-center justify-center gap-2 py-1.5 xl:py-2 bg-[#0077b5] text-white rounded-lg text-[10px] xl:text-xs font-bold hover:opacity-90 transition-opacity">
                             LINKEDIN
                         </a>
                     </div>
@@ -221,7 +221,7 @@ const CharacterProfile = ({ onNavigate }) => {
                     {/* TECH CAROUSEL */}
                     <TechMarquee skills={cvData.skills} />
 
-                    <div className="px-4 md:px-6 lg:px-10 pb-10">
+                    <div className="px-4 text-sm md:px-6 xl:px-10 pb-10">
                         {/* DESKTOP AREA: FOLDERS */}
                         <div className="mb-10">
                             <div className="flex items-center gap-2 mb-6 border-b-2 border-primary/10 pb-2">
