@@ -129,19 +129,19 @@ const CharacterProfile = ({ onNavigate }) => {
         <div className="h-full flex flex-col relative overflow-y-auto xl:overflow-hidden custom-scrollbar xl:custom-scrollbar-none">
 
             {/* CONTENT AREA */}
-            <div className="flex-1 flex flex-col xl:flex-row max-w-7xl mx-auto w-full">
+            <div className="flex-1 flex flex-col xl:flex-row max-w-7xl mx-auto w-full xl:h-full xl:overflow-hidden">
 
                 {/* LEFT COLUMN: AVATAR & BIO */}
-                <div className="w-full xl:w-[35%] p-4 lg:p-8 flex-col bg-white/30 backdrop-blur-md xl:border-r border-primary/10 overflow-visible xl:overflow-y-auto custom-scrollbar shadow-xl z-10 shrink-0 flex">
+                <div className="w-full xl:w-[30%] p-4 lg:p-8 xl:p-6 flex-col bg-white/30 backdrop-blur-md xl:border-r border-primary/10 overflow-visible xl:overflow-y-auto custom-scrollbar shadow-xl z-10 shrink-0 flex">
 
                     {/* AVATAR FRAME - Compact on Mobile */}
                     <motion.div
                         // Removed initial opacity=0 to ensure visibility on load
                         initial={{ scale: 0.9 }}
                         animate={{ scale: 1 }}
-                        className="relative mx-auto mb-4 lg:mb-6"
+                        className="relative mx-auto mb-4 lg:mb-6 xl:mb-4"
                     >
-                        <div className="w-32 h-40 lg:w-56 lg:h-72 bg-gradient-to-b from-primary/5 to-primary/10 border-4 border-white/50 rounded-xl flex items-center justify-center relative shadow-lg overflow-hidden group">
+                        <div className="w-32 h-40 lg:w-56 lg:h-72 xl:w-48 xl:h-60 bg-gradient-to-b from-primary/5 to-primary/10 border-4 border-white/50 rounded-xl flex items-center justify-center relative shadow-lg overflow-hidden group">
                             <div className="absolute inset-0 opacity-20"
                                 style={{ backgroundImage: 'radial-gradient(#C96868 1px, transparent 1px)', backgroundSize: '20px 20px' }}>
                             </div>
@@ -161,8 +161,8 @@ const CharacterProfile = ({ onNavigate }) => {
                     </motion.div>
 
                     {/* NAME & TITLE */}
-                    <div className="text-center mb-4 lg:mb-6">
-                        <h1 className="text-xl lg:text-3xl font-black text-text-main uppercase tracking-tight mb-1">
+                    <div className="text-center mb-4 lg:mb-6 xl:mb-4">
+                        <h1 className="text-xl lg:text-3xl xl:text-2xl font-black text-text-main uppercase tracking-tight mb-1">
                             {cvData.personal.name}
                         </h1>
                         <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary text-[10px] lg:text-xs font-bold rounded-full border border-primary/20">
@@ -172,7 +172,7 @@ const CharacterProfile = ({ onNavigate }) => {
                     </div>
 
                     {/* BIO / SUMMARY - Compact grid on mobile */}
-                    <div className="bg-white/50 p-3 lg:p-6 rounded-xl border border-primary/10 shadow-sm mb-4 lg:mb-6">
+                    <div className="bg-white/50 p-3 lg:p-6 xl:p-4 rounded-xl border border-primary/10 shadow-sm mb-4 lg:mb-6 xl:mb-4">
                         <h3 className="text-[10px] lg:text-xs font-bold text-text-muted mb-2 lg:mb-3 uppercase flex items-center gap-2">
                             <User size={14} /> Character Info
                         </h3>
@@ -216,7 +216,7 @@ const CharacterProfile = ({ onNavigate }) => {
                 </div>
 
                 {/* RIGHT COLUMN: DESKTOP WORKSPACE */}
-                <div className="flex-1 p-0 overflow-visible md:overflow-y-auto custom-scrollbar bg-background relative block">
+                <div className="flex-1 p-0 overflow-visible xl:overflow-y-auto custom-scrollbar bg-background relative block">
 
                     {/* TECH CAROUSEL */}
                     <TechMarquee skills={cvData.skills} />
