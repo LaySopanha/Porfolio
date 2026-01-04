@@ -86,7 +86,7 @@ function WorkspaceLayout() {
 
         {/* MOBILE MENU TOGGLE (Adjusted position) */}
         <button
-          className="md:hidden fixed top-14 right-4 z-50 p-2 bg-white rounded-full shadow-md border border-primary/20"
+          className="lg:hidden fixed top-14 right-4 z-50 p-3 bg-white rounded-full shadow-md border border-primary/20"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X size={24} className="text-primary" /> : <Menu size={24} className="text-primary" />}
@@ -94,8 +94,11 @@ function WorkspaceLayout() {
 
         {/* SIDEBAR (Responsive) */}
         <div className={`
-             fixed inset-y-0 left-0 top-10 bottom-8 z-40 w-72 transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0 md:inset-auto md:h-full
-             ${mobileMenuOpen ? 'translate-x-0 shadow-2xl border-r border-primary/20 bg-background' : '-translate-x-full'}
+             fixed inset-y-0 left-0 top-10 bottom-8 z-40 bg-background
+             transform transition-transform duration-300 ease-in-out
+             w-full lg:w-72 lg:relative lg:translate-x-0 lg:inset-auto lg:h-full
+             ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
+             lg:border-r border-primary/20
            `}>
           <Sidebar currentFile={currentFile} onFileSelect={handleFileSelect} />
         </div>

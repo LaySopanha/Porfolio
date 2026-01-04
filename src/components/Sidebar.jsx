@@ -17,10 +17,13 @@ const FileItem = ({ name, id, activeId, icon, onClick, depth = 0 }) => {
             whileHover={{ x: 4, backgroundColor: 'rgba(201, 104, 104, 0.1)' }}
             onClick={onClick}
             className={`
-        w-full flex items-center gap-2 py-1.5 px-2 text-sm font-mono transition-colors rounded
-        ${activeId === id ? 'text-primary font-bold bg-primary/10' : 'text-text-muted hover:text-text-main'}
+        w-full flex items-center md:justify-start gap-4 md:gap-2 py-4 md:py-1.5 px-4 md:px-2 
+        text-lg md:text-sm font-mono transition-all rounded-none md:rounded
+        ${activeId === id
+                    ? 'text-primary font-bold bg-primary/10 border-l-4 md:border-l-0 border-primary'
+                    : 'text-text-muted hover:text-text-main hover:bg-white/5'}
       `}
-            style={{ paddingLeft: `${depth * 1.5 + 0.5}rem` }}
+            style={{ paddingLeft: `${depth * 1.5 + 1}rem` }}
         >
             {icon || <FileIcon name={name} />}
             <span>{name}</span>
@@ -36,8 +39,8 @@ const FolderItem = ({ name, children, defaultOpen = false, depth = 0 }) => {
             <motion.button
                 whileHover={{ x: 4 }}
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full flex items-center gap-2 py-1.5 px-2 text-sm font-bold text-text-main hover:text-primary transition-colors"
-                style={{ paddingLeft: `${depth * 1.5}rem` }}
+                className="w-full flex items-center md:justify-start gap-4 md:gap-2 py-4 md:py-1.5 px-4 md:px-2 text-lg md:text-sm font-bold text-text-main hover:text-primary transition-colors"
+                style={{ paddingLeft: `${depth * 1.5 + 1}rem` }}
             >
                 <span className="text-primary/70">
                     {isOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} />}

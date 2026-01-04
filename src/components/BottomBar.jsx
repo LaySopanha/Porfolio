@@ -2,7 +2,7 @@ import { Activity } from 'lucide-react'
 
 const BottomBar = () => {
     return (
-        <footer className="h-8 bg-background border-t border-primary/20 flex items-center justify-between px-4 select-none shrink-0 z-50 text-[10px] sm:text-xs font-mono text-text-muted">
+        <footer className="h-8 bg-background border-t border-primary/20 flex items-center justify-between px-2 sm:px-4 select-none shrink-0 z-50 text-[9px] sm:text-xs font-mono text-text-muted overflow-hidden">
             <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
                     <Activity size={12} className="text-secondary animate-pulse" />

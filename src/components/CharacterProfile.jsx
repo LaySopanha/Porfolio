@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { User, Code, Cpu, Database, Award, Shield, Zap, Terminal, Layers, BookOpen, Briefcase, GraduationCap, ChevronRight, ExternalLink } from 'lucide-react'
+import { User, Code, Cpu, Database, Award, Shield, Zap, Terminal, Layers, BookOpen, Briefcase, GraduationCap, ChevronRight, ExternalLink, LayoutGrid } from 'lucide-react'
 import { cvData } from '../data'
 import ActivityFeed from './ActivityFeed'
 
@@ -47,7 +48,7 @@ const TechMarquee = ({ skills }) => {
     const marqueeList = [...allSkills, ...allSkills]
 
     return (
-        <div className="w-full overflow-hidden bg-white/40 border-y border-primary/10 py-4 mb-8">
+        <div className="w-full overflow-hidden bg-white/40 border-y border-primary/10 py-4 mb-4 lg:mb-8 max-w-[100vw]">
             <div className="flex items-center gap-2 mb-2 px-4">
                 <Zap size={14} className="text-secondary animate-pulse" />
                 <span className="text-xs font-bold text-text-muted uppercase">Equipped Technologies</span>
@@ -125,160 +126,164 @@ const DesktopIcon = ({ label, type, onClick, delay }) => (
 
 const CharacterProfile = ({ onNavigate }) => {
     return (
-        <div className="h-full flex flex-col md:flex-row overflow-hidden max-w-7xl mx-auto">
+        <div className="h-full flex flex-col relative overflow-y-auto lg:overflow-hidden custom-scrollbar lg:custom-scrollbar-none">
 
-            {/* LEFT COLUMN: AVATAR & BIO */}
-            <div className="w-full md:w-[35%] p-6 md:p-8 flex flex-col bg-white/30 backdrop-blur-md md:border-r border-primary/10 overflow-y-auto custom-scrollbar shadow-xl z-10">
+            {/* CONTENT AREA */}
+            <div className="flex-1 flex flex-col lg:flex-row max-w-7xl mx-auto w-full">
 
-                {/* AVATAR FRAME */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="relative mx-auto mb-6"
-                >
-                    <div className="w-56 h-72 bg-gradient-to-b from-primary/5 to-primary/10 border-4 border-white/50 rounded-xl flex items-center justify-center relative shadow-lg overflow-hidden group">
-                        <div className="absolute inset-0 opacity-20"
-                            style={{ backgroundImage: 'radial-gradient(#C96868 1px, transparent 1px)', backgroundSize: '20px 20px' }}>
-                        </div>
+                {/* LEFT COLUMN: AVATAR & BIO */}
+                <div className="w-full lg:w-[35%] p-4 lg:p-8 flex-col bg-white/30 backdrop-blur-md lg:border-r border-primary/10 overflow-visible lg:overflow-y-auto custom-scrollbar shadow-xl z-10 shrink-0 flex">
 
-                        {/* Character Image */}
-                        <img
-                            src="/profile.png"
-                            alt="Avatar"
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
+                    {/* AVATAR FRAME - Compact on Mobile */}
+                    <motion.div
+                        // Removed initial opacity=0 to ensure visibility on load
+                        initial={{ scale: 0.9 }}
+                        animate={{ scale: 1 }}
+                        className="relative mx-auto mb-4 lg:mb-6"
+                    >
+                        <div className="w-32 h-40 lg:w-56 lg:h-72 bg-gradient-to-b from-primary/5 to-primary/10 border-4 border-white/50 rounded-xl flex items-center justify-center relative shadow-lg overflow-hidden group">
+                            <div className="absolute inset-0 opacity-20"
+                                style={{ backgroundImage: 'radial-gradient(#C96868 1px, transparent 1px)', backgroundSize: '20px 20px' }}>
+                            </div>
 
-                        {/* Level Badge */}
-                        <div className="absolute top-4 right-4 bg-black/80 text-white text-xs font-bold px-2 py-1 rounded border border-white/20">
-                            LVL. 21
-                        </div>
-                    </div>
-                </motion.div>
+                            {/* Character Image */}
+                            <img
+                                src="/profile.png"
+                                alt="Avatar"
+                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
 
-                {/* NAME & TITLE */}
-                <div className="text-center mb-6">
-                    <h1 className="text-3xl font-black text-text-main uppercase tracking-tight mb-1">
-                        {cvData.personal.name}
-                    </h1>
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full border border-primary/20">
-                        <Shield size={12} />
-                        {cvData.personal.title}
-                    </div>
-                </div>
-
-                {/* BIO / SUMMARY */}
-                <div className="bg-white/50 p-6 rounded-xl border border-primary/10 shadow-sm mb-6">
-                    <h3 className="text-xs font-bold text-text-muted mb-3 uppercase flex items-center gap-2">
-                        <User size={14} /> Character Info
-                    </h3>
-                    <div className="space-y-3 text-sm">
-                        <div className="flex justify-between items-center">
-                            <span className="text-text-muted font-mono text-xs">Date of Birth:</span>
-                            <span className="text-text-main font-bold">July 24, 2005</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                            <span className="text-text-muted font-mono text-xs">Degree:</span>
-                            <span className="text-text-main font-bold text-right">Bachelor of Computer Science</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                            <span className="text-text-muted font-mono text-xs">Specialized Major:</span>
-                            <span className="text-text-main font-bold">Data Science</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                            <span className="text-text-muted font-mono text-xs">Expected Grad:</span>
-                            <span className="text-text-main font-bold">Dec 2026</span>
-                        </div>
-                        <div className="flex justify-between items-center">
-                            <span className="text-text-muted font-mono text-xs">GPA:</span>
-                            <span className="text-primary font-black">4.0</span>
-                        </div>
-                        <div className="flex justify-between items-center pt-2 border-t border-primary/10">
-                            <span className="text-text-muted font-mono text-xs">Location:</span>
-                            <span className="text-text-main font-bold">{cvData.personal.location}</span>
-                        </div>
-                    </div>
-                </div>
-
-                {/* SOCIAL LINKS - COMPACT */}
-                <div className="grid grid-cols-2 gap-3 mt-auto">
-                    <a href={cvData.personal.links.github} target="_blank" className="flex items-center justify-center gap-2 py-2 bg-text-main text-white rounded-lg text-xs font-bold hover:bg-primary transition-colors">
-                        GITHUB
-                    </a>
-                    <a href={cvData.personal.links.linkedin} target="_blank" className="flex items-center justify-center gap-2 py-2 bg-[#0077b5] text-white rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">
-                        LINKEDIN
-                    </a>
-                </div>
-            </div>
-
-            {/* RIGHT COLUMN: DESKTOP WORKSPACE */}
-            <div className="flex-1 p-0 overflow-y-auto custom-scrollbar bg-background relative">
-
-                {/* TECH CAROUSEL */}
-                <TechMarquee skills={cvData.skills} />
-
-                <div className="px-6 md:px-10 pb-10">
-                    {/* DESKTOP AREA: FOLDERS */}
-                    <div className="mb-10">
-                        <div className="flex items-center gap-2 mb-6 border-b-2 border-primary/10 pb-2">
-                            <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                            <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                            <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                            <h2 className="text-sm font-bold ml-2 font-mono text-text-muted">~/USER/DESKTOP</h2>
-                        </div>
-
-                        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-y-8 gap-x-4 place-items-center">
-                            {/* Experience Folders */}
-                            {cvData.experience.map((exp, i) => (
-                                <DesktopIcon
-                                    key={`exp-${i}`}
-                                    label={exp.role}
-                                    type="EXP"
-                                    onClick={() => onNavigate(`exp-${i}`)}
-                                    delay={i}
-                                />
-                            ))}
-
-                            {/* Project Folders */}
-                            {cvData.projects.map((proj, i) => (
-                                <DesktopIcon
-                                    key={`proj-${i}`}
-                                    label={proj.name}
-                                    type="PROJECT"
-                                    onClick={() => onNavigate(`proj-${i}`)}
-                                    delay={i + 3}
-                                />
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* RECENT DROPS (Awards) - WINDOW STYLE */}
-                    <div className="bg-[#FFF8E7] border border-black/10 rounded shadow-md p-1 mt-8">
-                        <div className="bg-gradient-to-r from-[#000080] to-[#1084d0] text-white px-2 py-1 text-xs font-bold flex justify-between items-center">
-                            <span>TROPHY_CASE.exe</span>
-                            <div className="flex gap-1">
-                                <div className="w-3 h-3 bg-[#c0c0c0] border border-white border-b-black border-r-black"></div>
-                                <div className="w-3 h-3 bg-[#c0c0c0] border border-white border-b-black border-r-black"></div>
+                            {/* Level Badge */}
+                            <div className="absolute top-2 right-2 lg:top-4 lg:right-4 bg-black/80 text-white text-[10px] lg:text-xs font-bold px-1.5 py-0.5 lg:px-2 lg:py-1 rounded border border-white/20">
+                                LVL. 21
                             </div>
                         </div>
-                        <div className="p-4 grid md:grid-cols-2 gap-4">
-                            {cvData.honors.map((honor, i) => (
-                                <div key={i} className="flex gap-3 items-center p-2 hover:bg-black/5 rounded cursor-default border border-transparent hover:border-black/5">
-                                    <Award size={24} className="text-[#FFD700] drop-shadow-sm" />
-                                    <div>
-                                        <div className="text-xs font-bold text-black">{honor.title}</div>
-                                        <div className="text-[10px] text-gray-500">{honor.issuer}</div>
-                                    </div>
-                                </div>
-                            ))}
+                    </motion.div>
+
+                    {/* NAME & TITLE */}
+                    <div className="text-center mb-4 lg:mb-6">
+                        <h1 className="text-xl lg:text-3xl font-black text-text-main uppercase tracking-tight mb-1">
+                            {cvData.personal.name}
+                        </h1>
+                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary text-[10px] lg:text-xs font-bold rounded-full border border-primary/20">
+                            <Shield size={12} />
+                            {cvData.personal.title}
                         </div>
                     </div>
 
-                    {/* RECENT ACTIVITY FEED */}
-                    <div className="mt-8">
-                        <ActivityFeed onNavigate={onNavigate} />
+                    {/* BIO / SUMMARY - Compact grid on mobile */}
+                    <div className="bg-white/50 p-3 lg:p-6 rounded-xl border border-primary/10 shadow-sm mb-4 lg:mb-6">
+                        <h3 className="text-[10px] lg:text-xs font-bold text-text-muted mb-2 lg:mb-3 uppercase flex items-center gap-2">
+                            <User size={14} /> Character Info
+                        </h3>
+                        <div className="grid grid-cols-2 lg:grid-cols-1 gap-2 lg:gap-3 text-xs lg:text-sm">
+                            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center">
+                                <span className="text-text-muted font-mono text-[10px] lg:text-xs">Date of Birth:</span>
+                                <span className="text-text-main font-bold">July 24, 2005</span>
+                            </div>
+                            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center">
+                                <span className="text-text-muted font-mono text-[10px] lg:text-xs">Degree:</span>
+                                <span className="text-text-main font-bold lg:text-right">B. Comp. Sci</span>
+                            </div>
+                            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center">
+                                <span className="text-text-muted font-mono text-[10px] lg:text-xs">Major:</span>
+                                <span className="text-text-main font-bold">Data Science</span>
+                            </div>
+                            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center">
+                                <span className="text-text-muted font-mono text-[10px] lg:text-xs">Grad:</span>
+                                <span className="text-text-main font-bold">Dec 2026</span>
+                            </div>
+                            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center">
+                                <span className="text-text-muted font-mono text-[10px] lg:text-xs">GPA:</span>
+                                <span className="text-primary font-black">4.0</span>
+                            </div>
+                            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center pt-1 lg:pt-2 lg:border-t border-primary/10 col-span-2 lg:col-span-1">
+                                <span className="text-text-muted font-mono text-[10px] lg:text-xs">Location:</span>
+                                <span className="text-text-main font-bold">{cvData.personal.location}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* SOCIAL LINKS - COMPACT */}
+                    <div className="grid grid-cols-2 gap-2 md:gap-3 mt-auto pb-0">
+                        <a href={cvData.personal.links.github} target="_blank" className="flex items-center justify-center gap-2 py-1.5 md:py-2 bg-text-main text-white rounded-lg text-[10px] md:text-xs font-bold hover:bg-primary transition-colors">
+                            GITHUB
+                        </a>
+                        <a href={cvData.personal.links.linkedin} target="_blank" className="flex items-center justify-center gap-2 py-1.5 md:py-2 bg-[#0077b5] text-white rounded-lg text-[10px] md:text-xs font-bold hover:opacity-90 transition-opacity">
+                            LINKEDIN
+                        </a>
                     </div>
                 </div>
 
+                {/* RIGHT COLUMN: DESKTOP WORKSPACE */}
+                <div className="flex-1 p-0 overflow-visible md:overflow-y-auto custom-scrollbar bg-background relative block">
+
+                    {/* TECH CAROUSEL */}
+                    <TechMarquee skills={cvData.skills} />
+
+                    <div className="px-4 md:px-6 lg:px-10 pb-10">
+                        {/* DESKTOP AREA: FOLDERS */}
+                        <div className="mb-10">
+                            <div className="flex items-center gap-2 mb-6 border-b-2 border-primary/10 pb-2">
+                                <div className="w-3 h-3 bg-red-400 rounded-full"></div>
+                                <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                                <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+                                <h2 className="text-sm font-bold ml-2 font-mono text-text-muted">~/USER/DESKTOP</h2>
+                            </div>
+
+                            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-y-6 gap-x-2 md:gap-y-8 md:gap-x-4 place-items-center">
+                                {/* Experience Folders */}
+                                {cvData.experience.map((exp, i) => (
+                                    <DesktopIcon
+                                        key={`exp-${i}`}
+                                        label={exp.role}
+                                        type="EXP"
+                                        onClick={() => onNavigate(`exp-${i}`)}
+                                        delay={i}
+                                    />
+                                ))}
+
+                                {/* Project Folders */}
+                                {cvData.projects.map((proj, i) => (
+                                    <DesktopIcon
+                                        key={`proj-${i}`}
+                                        label={proj.name}
+                                        type="PROJECT"
+                                        onClick={() => onNavigate(`proj-${i}`)}
+                                        delay={i + 3}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* RECENT DROPS (Awards) - WINDOW STYLE */}
+                        <div className="bg-[#FFF8E7] border border-black/10 rounded shadow-md p-1 mt-8">
+                            <div className="bg-gradient-to-r from-[#000080] to-[#1084d0] text-white px-2 py-1 text-xs font-bold flex justify-between items-center">
+                                <span>TROPHY_CASE.exe</span>
+                                <div className="flex gap-1">
+                                    <div className="w-3 h-3 bg-[#c0c0c0] border border-white border-b-black border-r-black"></div>
+                                    <div className="w-3 h-3 bg-[#c0c0c0] border border-white border-b-black border-r-black"></div>
+                                </div>
+                            </div>
+                            <div className="p-3 md:p-4 grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                                {cvData.honors.map((honor, i) => (
+                                    <div key={i} className="flex gap-3 items-center p-2 hover:bg-black/5 rounded cursor-default border border-transparent hover:border-black/5">
+                                        <Award size={24} className="text-[#FFD700] drop-shadow-sm shrink-0" />
+                                        <div>
+                                            <div className="text-xs font-bold text-black">{honor.title}</div>
+                                            <div className="text-[10px] text-gray-500">{honor.issuer}</div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* RECENT ACTIVITY FEED */}
+                        <div className="mt-8">
+                            <ActivityFeed onNavigate={onNavigate} />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     )
