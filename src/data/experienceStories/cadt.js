@@ -1,4 +1,5 @@
 export const cadtStory = {
+    footerText: "CAMBODIA ACADEMY OF DIGITAL TECHNOLOGY (CADT)",
     tagline: "Lead Researcher (Deep Learning & Infrastructure)",
     heroImage: "/images/ACET 2025/TrOCR_pipeline_architecture.jpg",
     overview: "Role: Lead Researcher | Project: CADT Capstone Project II | Location: Phnom Penh, Cambodia | Period: Oct 2025 - Dec 2025",

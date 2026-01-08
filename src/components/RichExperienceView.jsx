@@ -401,6 +401,11 @@ const RichExperienceView = ({ data }) => {
                                     <Download size={14} /> Download Report
                                 </a>
                             )}
+                            {data.links?.publication && (
+                                <a href={data.links.publication} target="_blank" rel="noreferrer" className="flex items-center gap-2 bg-white text-[#C96868] border-2 border-white px-4 py-2 text-xs font-bold uppercase hover:bg-white/90 transition-all tracking-wider">
+                                    <Globe size={14} /> Read Publication
+                                </a>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -445,7 +450,9 @@ const RichExperienceView = ({ data }) => {
 
             {/* FOOTER */}
             <div className="bg-[#C96868] text-white py-8 text-center font-mono text-xs border-t-8 border-[#FFF8E7]">
-                <p className="opacity-70 mb-2">DGIST PRIVACY & APPLIED CRYPTOGRAPHY LAB</p>
+                {(data.footerText || data.company) && (
+                    <p className="opacity-70 mb-2">{data.footerText || data.company}</p>
+                )}
                 <p className="font-bold tracking-widest">/// END OF REPORT ///</p>
             </div>
         </div>

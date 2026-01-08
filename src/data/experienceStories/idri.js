@@ -1,4 +1,5 @@
 export const idriStory = {
+    footerText: "INSTITUTE OF DIGITAL RESEARCH & INNOVATION (IDRI)",
     title: "IDRI Internship",
     tagline: "Building a Minimum Viable Product in a 1-Month Sprint",
     heroImage: "/images/idri/group-photo-defence-day.png",
@@ -159,6 +160,7 @@ export const idriStory = {
     techStack: ["PaddleOCR", "MobileNetV3", "Python", "Tesseract", "OpenCV", "Docker"],
     links: {
         company: "https://www.idri.edu.kh/",
-        paper: "/pdf/IDRI-Internship-report.pdf"
+        paper: "/pdf/IDRI-Internship-report.pdf",
+        publication: "#"
     }
 }

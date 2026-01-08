@@ -1,4 +1,5 @@
 export const dgistStory = {
+    footerText: "DGIST PRIVACY & APPLIED CRYPTOGRAPHY LAB",
     tagline: "Summer in Daegu: The \"GE Wars\" & The AGIS Experience",
     heroImage: "/images/dgist/Cambodian-intern.png",
     overview: "Role: Research Intern (AGIS Scholar) | Lab: Privacy and Applied Cryptography Lab (PACL) | Location: DGIST, South Korea | Period: June – August 2025",
