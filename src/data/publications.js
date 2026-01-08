@@ -4,6 +4,6 @@ export const publications = [
         authors: "L. Sopanha, V. Kao, S. Kong, M. Ang, and H. Va",
         venue: "Proceedings of the 2025 Annual Conference on Engineering and Technology (ACET)",
         year: "2025",
-        link: "#"
+        link: "/pdf/Acet-submission.pdf"
     }
 ]

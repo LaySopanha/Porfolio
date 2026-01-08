@@ -143,7 +143,9 @@ export const idriStory = {
                 {
                     type: "insight-box",
                     title: "Connecting the Dots",
-                    text: "This 1-month sprint served as the experimental basis for my paper 'An Efficient OCR Pipeline for Semi-Structured Khmer Documents,' which was subsequently accepted at the ACET 2025 Conference."
+                    text: "This 1-month sprint served as the experimental basis for my paper 'An Efficient OCR Pipeline for Semi-Structured Khmer Documents,' which was subsequently accepted at the ACET 2025 Conference.",
+                    link: "/publications/0",
+                    linkText: "View Publication Details"
                 },
                 {
                     type: "image-gallery",
@@ -161,6 +163,6 @@ export const idriStory = {
     links: {
         company: "https://www.idri.edu.kh/",
         paper: "/pdf/IDRI-Internship-report.pdf",
-        publication: "#"
+        publication: "/publications/0"
     }
 }

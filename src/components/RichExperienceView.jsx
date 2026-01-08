@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { X, Minus, Square, Globe, Target, Cpu, Database, Radio, Clock, EyeOff, Layout, Terminal as PlatformIcon, Zap, Download, Swords } from 'lucide-react';
 
 const ICON_MAP = {
@@ -173,6 +174,19 @@ const RichExperienceView = ({ data }) => {
                     <div key={index} className="bg-[#7EACB5]/10 p-6 border-l-4 border-[#7EACB5] mb-6 rounded-r-lg">
                         <h4 className="font-bold text-[#7EACB5] text-sm mb-2 uppercase tracking-wider">{item.title}</h4>
                         <p className="text-sm italic text-[#4A4A4A] font-medium leading-relaxed">"{item.text}"</p>
+                        {item.link && (
+                            <div className="mt-4">
+                                {item.link.startsWith('/') ? (
+                                    <Link to={item.link} className="inline-flex items-center gap-2 text-xs font-bold uppercase text-[#7EACB5] hover:text-[#C96868] transition-colors tracking-wider border-b border-[#7EACB5]/30 pb-0.5 hover:border-[#C96868]">
+                                        <Globe size={12} /> {item.linkText || "Learn More"}
+                                    </Link>
+                                ) : (
+                                    <a href={item.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-xs font-bold uppercase text-[#7EACB5] hover:text-[#C96868] transition-colors tracking-wider border-b border-[#7EACB5]/30 pb-0.5 hover:border-[#C96868]">
+                                        <Globe size={12} /> {item.linkText || "Learn More"}
+                                    </a>
+                                )}
+                            </div>
+                        )}
                     </div>
                 );
 
@@ -402,9 +416,15 @@ const RichExperienceView = ({ data }) => {
                                 </a>
                             )}
                             {data.links?.publication && (
-                                <a href={data.links.publication} target="_blank" rel="noreferrer" className="flex items-center gap-2 bg-white text-[#C96868] border-2 border-white px-4 py-2 text-xs font-bold uppercase hover:bg-white/90 transition-all tracking-wider">
-                                    <Globe size={14} /> Read Publication
-                                </a>
+                                data.links.publication.startsWith('/') ? (
+                                    <Link to={data.links.publication} className="flex items-center gap-2 bg-white text-[#C96868] border-2 border-white px-4 py-2 text-xs font-bold uppercase hover:bg-white/90 transition-all tracking-wider">
+                                        <Globe size={14} /> Read Publication
+                                    </Link>
+                                ) : (
+                                    <a href={data.links.publication} target="_blank" rel="noreferrer" className="flex items-center gap-2 bg-white text-[#C96868] border-2 border-white px-4 py-2 text-xs font-bold uppercase hover:bg-white/90 transition-all tracking-wider">
+                                        <Globe size={14} /> Read Publication
+                                    </a>
+                                )
                             )}
                         </div>
                     </div>
